@@ -1,0 +1,87 @@
+.section {
+  border-top: 1px solid rgba(168,180,208,.08);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* LEFT */
+.left {
+  padding: 100px 60px;
+  border-right: 1px solid rgba(168,180,208,.08);
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+.points { display: flex; flex-direction: column; margin-top: 48px; }
+
+.point {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  padding: 36px 0;
+  border-bottom: 1px solid rgba(168,180,208,.07);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+
+.point:first-child { padding-top: 0; }
+.point:last-child  { border-bottom: none; padding-bottom: 0; }
+
+.point.visible { opacity: 1; transform: translateY(0); }
+
+.pointNum {
+  font-size: 11px; color: var(--lavande-dark);
+  letter-spacing: 0.1em; padding-top: 4px;
+}
+
+.pointBody h3 {
+  font-size: 20px; color: var(--lavande-light);
+  margin-bottom: 10px; letter-spacing: -0.01em; font-weight: 400;
+}
+
+.pointBody p {
+  font-size: 14px; color: var(--gris-3); line-height: 1.65;
+}
+
+/* RIGHT */
+.right {
+  display: flex; flex-direction: column;
+}
+
+.statBlock {
+  flex: 1;
+  padding: 0 60px;
+  display: flex; align-items: center; gap: 36px;
+  border-bottom: 1px solid rgba(168,180,208,.08);
+  position: relative; overflow: hidden;
+}
+
+.statBlock:last-child { border-bottom: none; }
+
+.statBlock::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(168,180,208,.2), transparent);
+}
+
+.statNum {
+  font-size: clamp(52px, 6vw, 80px);
+  line-height: 1; white-space: nowrap; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--metal-start), #fff 50%, var(--metal-end));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.statLabel {
+  font-size: 16px; color: var(--lavande-light);
+  margin-bottom: 6px; line-height: 1.3; font-weight: 400;
+}
+
+.statDesc { font-size: 13px; color: var(--gris-3); }
+
+@media (max-width: 960px) {
+  .section { grid-template-columns: 1fr; min-height: auto; }
+  .left { padding: 60px 24px; border-right: none; border-bottom: 1px solid rgba(168,180,208,.08); }
+  .right { min-height: 360px; }
+  .statBlock { padding: 40px 24px; }
+}
