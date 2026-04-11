@@ -41,6 +41,11 @@ button {
   cursor: none;
 }
 
+@media (hover: none) {
+  body, a, button { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
+}
+
 /* Cursor */
 .cursor {
   position: fixed;

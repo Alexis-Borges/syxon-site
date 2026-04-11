@@ -15,6 +15,9 @@ export default function App() {
   const ry = useRef(0)
 
   useEffect(() => {
+    // Pas de curseur custom sur tactile
+    if (window.matchMedia('(hover: none)').matches) return
+
     let mx = 0, my = 0
     const onMove = (e) => { mx = e.clientX; my = e.clientY }
     document.addEventListener('mousemove', onMove)
