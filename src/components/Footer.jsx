@@ -11,7 +11,10 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.brand}>
-        <div className={styles.wordmark}>syx·on</div>
+        <div className={styles.brandTop}>
+          <img src="/mark.png" alt="" className={styles.logoMark} width="28" height="28" />
+          <div className={styles.wordmark}>syx·on</div>
+        </div>
         <div className={styles.sub}>Service de diffusion dynamique</div>
       </div>
       <ul className={styles.links}>

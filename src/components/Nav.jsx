@@ -10,7 +10,10 @@ const links = [
 export default function Nav() {
   return (
     <nav className={styles.nav}>
-      <a href="#" className={styles.wordmark}>syx·on</a>
+      <a href="#" className={styles.wordmark} aria-label="syx·on — accueil">
+        <img src="/mark.png" alt="" className={styles.logoMark} width="32" height="32" />
+        <span className={styles.wordmarkText}>syx·on</span>
+      </a>
       <ul className={styles.links}>
         {links.map(l => (
           <li key={l.href}>

@@ -52,6 +52,7 @@ export default function Contact() {
     prenom: '', nom: '', pharmacie: '',
     email: '', tel: '', ville: '',
     ecrans: '', message: '',
+    _gotcha: '', // honeypot anti-spam (doit rester vide)
   })
 
   const handleChange = (e) =>
@@ -59,6 +60,11 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // Si le honeypot est rempli, c'est un bot : on simule un succès sans rien envoyer.
+    if (form._gotcha) {
+      setSubmitted(true)
+      return
+    }
     setError('')
     setSending(true)
     try {
@@ -126,12 +132,20 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className={styles.form}>
+              {/* Honeypot anti-spam : invisible pour l'humain, piège à bots */}
+              <input
+                type="text" name="_gotcha" tabIndex={-1} autoComplete="off"
+                aria-hidden="true"
+                style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
+                value={form._gotcha} onChange={handleChange}
+              />
+
               <div className={styles.row}>
                 <div className={styles.group}>
                   <label className={styles.label}>Prénom</label>
                   <input
                     className={styles.input} type="text" name="prenom"
-                    placeholder="Jean" required
+                    placeholder="Jean" required maxLength={80}
                     value={form.prenom} onChange={handleChange}
                   />
                 </div>
@@ -139,7 +153,7 @@ export default function Contact() {
                   <label className={styles.label}>Nom</label>
                   <input
                     className={styles.input} type="text" name="nom"
-                    placeholder="Dupont" required
+                    placeholder="Dupont" required maxLength={80}
                     value={form.nom} onChange={handleChange}
                   />
                 </div>
@@ -149,7 +163,7 @@ export default function Contact() {
                 <label className={styles.label}>Nom de la pharmacie</label>
                 <input
                   className={styles.input} type="text" name="pharmacie"
-                  placeholder="Pharmacie du Centre" required
+                  placeholder="Pharmacie du Centre" required maxLength={120}
                   value={form.pharmacie} onChange={handleChange}
                 />
               </div>
@@ -158,7 +172,7 @@ export default function Contact() {
                 <label className={styles.label}>Email professionnel</label>
                 <input
                   className={styles.input} type="email" name="email"
-                  placeholder="contact@pharmacie.fr" required
+                  placeholder="contact@pharmacie.fr" required maxLength={150}
                   value={form.email} onChange={handleChange}
                 />
               </div>
@@ -167,7 +181,7 @@ export default function Contact() {
                 <label className={styles.label}>Téléphone</label>
                 <input
                   className={styles.input} type="tel" name="tel"
-                  placeholder="01 48 20 00 00"
+                  placeholder="01 48 20 00 00" maxLength={20}
                   value={form.tel} onChange={handleChange}
                 />
               </div>
@@ -177,7 +191,7 @@ export default function Contact() {
                   <label className={styles.label}>Ville</label>
                   <input
                     className={styles.input} type="text" name="ville"
-                    placeholder="Saint-Denis"
+                    placeholder="Saint-Denis" maxLength={80}
                     value={form.ville} onChange={handleChange}
                   />
                 </div>
@@ -198,7 +212,7 @@ export default function Contact() {
                 <label className={styles.label}>Message (optionnel)</label>
                 <textarea
                   className={`${styles.input} ${styles.textarea}`}
-                  name="message"
+                  name="message" maxLength={1000}
                   placeholder="Une question, une contrainte particulière..."
                   value={form.message} onChange={handleChange}
                 />

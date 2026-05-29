@@ -8,6 +8,18 @@
 
 .brand {}
 
+.brandTop {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.logoMark {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
 .wordmark {
   font-size: 18px;
   background: linear-gradient(135deg, var(--lavande-dark), rgba(168,180,208,.5));

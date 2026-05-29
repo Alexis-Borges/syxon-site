@@ -3,13 +3,100 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>syx·on — Service de diffusion dynamique</title>
+
+    <!-- Title & description (les 2 balises les plus importantes pour Google) -->
+    <title>Syxon — Affichage dynamique pour pharmacies | Vidéos sur écrans en Île-de-France</title>
+    <meta
+      name="description"
+      content="Syxon crée vos animations vidéo sur mesure et les diffuse automatiquement sur les écrans de votre pharmacie : promotions, gammes, infos santé. Offre de lancement en Île-de-France."
+    />
+    <meta name="keywords" content="affichage dynamique pharmacie, écran pharmacie, vidéo pharmacie, communication pharmacie, digital signage pharmacie, syxon, Île-de-France" />
+    <meta name="author" content="Syxon" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0C0D0F" />
+
+    <!-- URL canonique (évite le contenu dupliqué) -->
+    <link rel="canonical" href="https://syx-on.fr/" />
+
+    <!-- Favicon / icônes -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph (aperçu sur WhatsApp, LinkedIn, Facebook, iMessage…) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Syxon" />
+    <meta property="og:title" content="Syxon — Vos écrans travaillent pour vous" />
+    <meta
+      property="og:description"
+      content="Animations vidéo sur mesure diffusées automatiquement sur les écrans de votre pharmacie. Promotions, gammes, infos santé. Offre de lancement Île-de-France."
+    />
+    <meta property="og:url" content="https://syx-on.fr/" />
+    <meta property="og:image" content="https://syx-on.fr/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Syxon — affichage dynamique pour pharmacies" />
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Syxon — Vos écrans travaillent pour vous" />
+    <meta
+      name="twitter:description"
+      content="Animations vidéo sur mesure diffusées automatiquement sur les écrans de votre pharmacie. Offre de lancement Île-de-France."
+    />
+    <meta name="twitter:image" content="https://syx-on.fr/og-image.jpg" />
+
+    <!-- Polices -->
     <style>
       @import url("https://use.typekit.net/iaz3doh.css");
     </style>
+
+    <!-- Données structurées : aident Google à comprendre l'entreprise -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Syxon",
+        "description": "Service de diffusion dynamique : création d'animations vidéo sur mesure et diffusion automatique sur les écrans de pharmacies.",
+        "url": "https://syx-on.fr/",
+        "logo": "https://syx-on.fr/logo.png",
+        "image": "https://syx-on.fr/og-image.jpg",
+        "email": "syxon.industry@gmail.com",
+        "telephone": "+33634183970",
+        "priceRange": "€€",
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Île-de-France"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressRegion": "Île-de-France",
+          "addressCountry": "FR"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+33634183970",
+          "email": "syxon.industry@gmail.com",
+          "contactType": "sales",
+          "availableLanguage": "French"
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Contenu de secours pour les robots/visiteurs sans JavaScript -->
+    <noscript>
+      <h1>Syxon — Affichage dynamique pour pharmacies</h1>
+      <p>
+        Syxon crée vos animations vidéo sur mesure et les diffuse automatiquement
+        sur les écrans de votre pharmacie : promotions, gammes, informations santé.
+        Offre de lancement en Île-de-France.
+      </p>
+      <p>Contact : 06 34 18 39 70 — syxon.industry@gmail.com</p>
+    </noscript>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

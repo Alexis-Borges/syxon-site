@@ -10,13 +10,25 @@
 }
 
 .wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 22px;
   text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+.logoMark {
+  height: 32px;
+  width: auto;
+  display: block;
+}
+
+.wordmarkText {
   background: linear-gradient(135deg, var(--metal-start) 0%, #fff 45%, var(--metal-end) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -0.01em;
 }
 
 .links {
