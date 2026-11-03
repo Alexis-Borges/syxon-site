@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import useVideoCarousel from '../hooks/useVideoCarousel'
 import styles from './Hero.module.css'
 
 const videos = [
@@ -9,35 +9,7 @@ const videos = [
 ]
 
 export default function Hero() {
-  const [current, setCurrent] = useState(0)
-  const intervalRef = useRef(null)
-  const videoRefs = useRef([])
-
-  const goTo = (idx) => {
-    setCurrent(idx)
-    clearInterval(intervalRef.current)
-    intervalRef.current = setInterval(() => {
-      setCurrent(c => (c + 1) % videos.length)
-    }, 5000)
-  }
-
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCurrent(c => (c + 1) % videos.length)
-    }, 5000)
-    return () => clearInterval(intervalRef.current)
-  }, [])
-
-  useEffect(() => {
-    const v = videoRefs.current[current]
-    if (v) {
-      try {
-        v.currentTime = 0
-        const p = v.play()
-        if (p && typeof p.catch === 'function') p.catch(() => {})
-      } catch {}
-    }
-  }, [current])
+  const { current, goTo, videoProps } = useVideoCarousel(videos.length)
 
   return (
     <section className={styles.hero}>
@@ -98,14 +70,8 @@ export default function Hero() {
               {videos.map((src, i) => (
                 <video
                   key={src}
-                  ref={el => (videoRefs.current[i] = el)}
-                  className={`${styles.video} ${i === current ? styles.videoActive : ''}`}
                   src={src}
-                  muted
-                  playsInline
-                  autoPlay
-                  loop
-                  preload={i === 0 ? 'auto' : 'metadata'}
+                  {...videoProps(i, styles)}
                 />
               ))}
             </div>

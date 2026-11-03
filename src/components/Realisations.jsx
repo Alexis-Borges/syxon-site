@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import useVideoCarousel from '../hooks/useVideoCarousel'
 import styles from './Realisations.module.css'
 
 const videos = [
@@ -11,56 +11,9 @@ const videos = [
   '/videos/pharma-7.mp4',
 ]
 
-// Durée du fondu enchaîné (doit correspondre à la transition CSS de .videoActive)
-const FADE = 0.8
 
 export default function Realisations() {
-  const [current, setCurrent] = useState(0)
-  const [prev, setPrev] = useState(null)
-  const videoRefs = useRef([])
-  const advancedRef = useRef(false)
-  const fadeTimer = useRef(null)
-
-  const goTo = (idx) => {
-    if (idx === current) return
-    advancedRef.current = true
-    setPrev(current)
-    setCurrent(idx)
-  }
-
-  const next = () => {
-    if (advancedRef.current) return
-    goTo((current + 1) % videos.length)
-  }
-
-  // Lance la vidéo entrante depuis le début ; la sortante reste visible
-  // (opacité 1, en dessous) jusqu'à la fin du fondu → jamais de noir.
-  useEffect(() => {
-    advancedRef.current = false
-    const v = videoRefs.current[current]
-    if (v) {
-      try {
-        v.currentTime = 0
-        const p = v.play()
-        if (p && typeof p.catch === 'function') p.catch(() => {})
-      } catch {}
-    }
-    clearTimeout(fadeTimer.current)
-    fadeTimer.current = setTimeout(() => {
-      setPrev(p => {
-        if (p !== null) videoRefs.current[p]?.pause()
-        return null
-      })
-    }, FADE * 1000 + 100)
-    return () => clearTimeout(fadeTimer.current)
-  }, [current])
-
-  // Démarre le fondu un peu avant la fin de la vidéo en cours
-  const onTimeUpdate = (i) => (e) => {
-    if (i !== current) return
-    const v = e.currentTarget
-    if (v.duration && v.duration - v.currentTime <= FADE) next()
-  }
+  const { current, goTo, videoProps } = useVideoCarousel(videos.length)
 
   return (
     <section id="realisations" className={styles.section}>
@@ -102,14 +55,8 @@ export default function Realisations() {
                 {videos.map((src, i) => (
                   <video
                     key={src}
-                    ref={el => (videoRefs.current[i] = el)}
-                    className={`${styles.video} ${i === current ? styles.videoActive : i === prev ? styles.videoPrev : ''}`}
                     src={src}
-                    muted
-                    playsInline
-                    preload="auto"
-                    onTimeUpdate={onTimeUpdate(i)}
-                    onEnded={() => i === current && next()}
+                    {...videoProps(i, styles)}
                   />
                 ))}
               </div>
