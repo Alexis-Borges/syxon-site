@@ -104,10 +104,13 @@
   width: 100%; height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 1s ease;
+  z-index: 0;
 }
 
-.videoActive { opacity: 1; }
+/* Vidéo entrante : fondu au-dessus de la sortante */
+.videoActive { opacity: 1; z-index: 2; transition: opacity .8s ease; }
+/* Vidéo sortante : reste pleinement visible dessous pendant le fondu */
+.videoPrev { opacity: 1; z-index: 1; }
 
 /* TV Stand */
 .tvStand {

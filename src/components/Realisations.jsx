@@ -5,29 +5,38 @@ const videos = [
   '/videos/pharma-1.mp4',
   '/videos/pharma-2.mp4',
   '/videos/pharma-3.mp4',
+  '/videos/pharma-4.mp4',
+  '/videos/pharma-5.mp4',
+  '/videos/pharma-6.mp4',
+  '/videos/pharma-7.mp4',
 ]
+
+// Durée du fondu enchaîné (doit correspondre à la transition CSS de .videoActive)
+const FADE = 0.8
 
 export default function Realisations() {
   const [current, setCurrent] = useState(0)
-  const intervalRef = useRef(null)
+  const [prev, setPrev] = useState(null)
   const videoRefs = useRef([])
+  const advancedRef = useRef(false)
+  const fadeTimer = useRef(null)
 
   const goTo = (idx) => {
+    if (idx === current) return
+    advancedRef.current = true
+    setPrev(current)
     setCurrent(idx)
-    clearInterval(intervalRef.current)
-    intervalRef.current = setInterval(() => {
-      setCurrent(c => (c + 1) % videos.length)
-    }, 6000)
   }
 
-  useEffect(() => {
-    intervalRef.current = setInterval(() => {
-      setCurrent(c => (c + 1) % videos.length)
-    }, 6000)
-    return () => clearInterval(intervalRef.current)
-  }, [])
+  const next = () => {
+    if (advancedRef.current) return
+    goTo((current + 1) % videos.length)
+  }
 
+  // Lance la vidéo entrante depuis le début ; la sortante reste visible
+  // (opacité 1, en dessous) jusqu'à la fin du fondu → jamais de noir.
   useEffect(() => {
+    advancedRef.current = false
     const v = videoRefs.current[current]
     if (v) {
       try {
@@ -36,7 +45,22 @@ export default function Realisations() {
         if (p && typeof p.catch === 'function') p.catch(() => {})
       } catch {}
     }
+    clearTimeout(fadeTimer.current)
+    fadeTimer.current = setTimeout(() => {
+      setPrev(p => {
+        if (p !== null) videoRefs.current[p]?.pause()
+        return null
+      })
+    }, FADE * 1000 + 100)
+    return () => clearTimeout(fadeTimer.current)
   }, [current])
+
+  // Démarre le fondu un peu avant la fin de la vidéo en cours
+  const onTimeUpdate = (i) => (e) => {
+    if (i !== current) return
+    const v = e.currentTarget
+    if (v.duration && v.duration - v.currentTime <= FADE) next()
+  }
 
   return (
     <section id="realisations" className={styles.section}>
@@ -58,7 +82,7 @@ export default function Realisations() {
             </h2>
             <p className={styles.desc}>
               Tous les mois, une pharmacie est mise à l'honneur. Voici les réalisations commandées par<br />
-              <strong>Pharmacie des Écoles, Bagnolet</strong> — 2 animations livrées en novembre.
+              <strong>Pharmacie des Écoles, Bagnolet</strong> — 7 animations livrées en novembre.
             </p>
           </div>
 
@@ -79,13 +103,13 @@ export default function Realisations() {
                   <video
                     key={src}
                     ref={el => (videoRefs.current[i] = el)}
-                    className={`${styles.video} ${i === current ? styles.videoActive : ''}`}
+                    className={`${styles.video} ${i === current ? styles.videoActive : i === prev ? styles.videoPrev : ''}`}
                     src={src}
                     muted
                     playsInline
-                    autoPlay
-                    loop
-                    preload={i === 0 ? 'auto' : 'metadata'}
+                    preload="auto"
+                    onTimeUpdate={onTimeUpdate(i)}
+                    onEnded={() => i === current && next()}
                   />
                 ))}
               </div>
