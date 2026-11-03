@@ -58,7 +58,7 @@ export default function Realisations() {
             </h2>
             <p className={styles.desc}>
               Tous les mois, une pharmacie est mise à l'honneur. Voici les réalisations commandées par<br />
-              <strong>Pharmacie des Écoles, Bagnolet</strong> — 2 animations livrées en avril.
+              <strong>Pharmacie des Écoles, Bagnolet</strong> — 2 animations livrées en novembre.
             </p>
           </div>
 
