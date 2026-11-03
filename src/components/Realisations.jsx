@@ -4,6 +4,10 @@ import styles from './Realisations.module.css'
 const videos = [
   '/videos/pharma-1.mp4',
   '/videos/pharma-2.mp4',
+  '/videos/pharma-3.mp4',
+  '/videos/pharma-4.mp4',
+  '/videos/pharma-5.mp4',
+  '/videos/pharma-6.mp4',
   '/videos/pharma-7.mp4',
 ]
 
@@ -31,7 +35,7 @@ export default function Realisations() {
             </h2>
             <p className={styles.desc}>
               Tous les mois, une pharmacie est mise à l'honneur. Voici les réalisations commandées par<br />
-              <strong>Pharmacie des Écoles, Bagnolet</strong> — 3 animations livrées en novembre.
+              <strong>Pharmacie des Écoles, Bagnolet</strong> — 7 animations livrées en novembre.
             </p>
           </div>
 
