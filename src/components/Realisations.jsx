@@ -50,7 +50,7 @@ export default function Realisations() {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" />
               </svg>
-              Pharmacie du mois — Avril 2026
+              Pharmacie du mois — Novembre 2026
             </div>
             <h2 className={styles.title}>
               Ce que voient<br />
