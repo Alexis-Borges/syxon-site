@@ -3,8 +3,9 @@ import styles from './Hero.module.css'
 
 const videos = [
   '/videos/hero-1.mp4',
-  '/videos/hero-3.mp4',
+  '/videos/hero-2.mp4',
   '/videos/hero-4.mp4',
+  '/videos/hero-3.mp4', // la verte avec les horaires, en dernier
 ]
 
 export default function Hero() {
